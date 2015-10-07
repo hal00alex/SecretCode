@@ -1,0 +1,83 @@
+#!/usr/bin/perl 
+#Haley's Own Secret Code Encryption and Decryption 
+print ("Do you need to Encrypt(E) or Decrypt(D): ");
+my $choice = <STDIN>;
+
+#for encryption 
+if ($choice eq "E\n"){
+	 
+	print("Enter the string you want to encrypt: "); 
+	my $estring = <STDIN>; 
+	#turn string into a list  
+	my @chars = split("", $estring);
+	print("H"); 
+	
+	#count the number of character minus the enter 
+	for ($i = 0; $i < (length($estring)) - 1; $i++){
+		
+		#isolate a letter and get ASCII value 
+		$letter = $chars[$i]; 
+		$num = ord($letter);  
+		#if num is even, add 10 
+		if ($num % 2 == 0){
+			$num = $num + 10; 
+			$letter = chr($num);  
+			print ("$letter"); 
+		}
+		
+		#if num is odd, add 2 
+		else{ 
+			$num = $num + 2; 
+			$letter = chr($num);  
+			print ("$letter"); 
+		} 
+		
+		#really effective for letters and numbers, not so much for special characters 
+	}
+	#second half of signature 
+	print("J\n"); 		
+} 
+
+#for decryption 
+elsif ($choice eq "D\n"){
+	 
+	print("Enter the string you want to dencrypt: ");
+	my $dstring = <STDIN>; 
+	my @chars = split("", $dstring);
+		
+	#count the number of chacters minus the J and the enter 
+	for ($j = 0; $j < (length($dstring)-2); $j++){
+		
+		#isolate the letter and get ACII value
+		$letter = $chars[$j]; 
+		#print("$j $letter"); 
+		$num = ord($letter);  
+		
+		#delete the H at the beginning 
+		if ($j == 0){
+			print (" "); 
+		}
+		
+		# if ASCII even, add 10
+		elsif ($num % 2 == 0){
+			$num = $num - 10; 
+			$letter = chr($num);  
+			print ("$letter"); 
+		}
+		
+		#if num is odd, subtract 2 
+		else{ 
+			$num = $num - 2; 
+			$letter = chr($num);  
+			print ("$letter"); 
+		}
+		  
+	}
+	print ("\n");	 
+}
+
+#Funny Warning for people who made a typo or didn't understand the purposefully vague directions 
+else{
+	die("Invalid Entry, you must be an intruder!");
+	  
+} 
